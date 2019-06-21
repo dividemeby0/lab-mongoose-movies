@@ -1,4 +1,5 @@
 require('dotenv').config();
+// require("./bin/seeds"); // Needed to require it to import the database from seeds
 
 const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -11,9 +12,9 @@ const path         = require('path');
 
 
 mongoose
-  .connect('mongodb://localhost/starter-code', {useNewUrlParser: true})
+  .connect('mongodb://localhost/celebrities-lab', {useNewUrlParser: true})
   .then(x => {
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+    console.log(`Connected to Mongo! Database name: "celebrities-lab"`)
   })
   .catch(err => {
     console.error('Error connecting to mongo', err)
@@ -53,6 +54,8 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 const index = require('./routes/index');
 app.use('/', index);
+const celebrityRoute = require('./routes/celebrities')
+app.use("/", celebrityRoute)
 
 
 module.exports = app;
